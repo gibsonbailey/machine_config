@@ -11,4 +11,3 @@ imap jj <Esc>
 
 syntax enable
 set background=light
-colorscheme PaperColor
