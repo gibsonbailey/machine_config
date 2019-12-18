@@ -20,8 +20,15 @@ printf "                 \\   \`\\  \\ \n"
 printf "                  \`-._/._/                    +                           \n"
 printf "\n\n"
 
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
-PS1="\u:\w >> "
+setopt PROMPT_SUBST
+PROMPT='%9c%{%F{green}%}$(parse_git_branch)%{%F{none}%} >> '
+
+bindkey "\e\e[D" backward-word
+bindkey "\e\e[C" forward-word
 
 # added by Anaconda3 5.2.0 installer
 export PATH="/anaconda3/bin:$PATH"
@@ -29,6 +36,7 @@ export PATH="/anaconda3/bin:$PATH"
 alias ll="ls -al"
 alias get_ip="curl ipecho.net/plain ; echo"
 alias python="python3"
+alias gc="git commit -m"
 alias gs="git status"
 alias up="docker-compose up -d"
 alias down="docker-compose down"
