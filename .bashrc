@@ -39,6 +39,8 @@ alias python="python3"
 alias gc="git commit -m"
 alias gs="git status"
 alias ga="git add ."
+alias graph="git log --graph --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(green)(%ar)%C(reset)%C(bold white) %s%C(reset) %C(dim     white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+
 alias up="docker-compose up -d"
 alias down="docker-compose down"
 alias dc="docker-compose"
