@@ -1,5 +1,6 @@
 
 set tabstop=4 shiftwidth=4 expandtab
+set mouse=a
 set number
 set autoindent
 
