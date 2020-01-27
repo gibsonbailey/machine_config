@@ -15,9 +15,8 @@ set t_Co=256
 imap jj <Esc>
 nnoremap <silent> <F9> :tabp <CR>
 nnoremap <silent> <F10> :tabn <CR>
-nnoremap <silent> :te :tabe
 nnoremap <silent> <C-O> :Files <CR>
-nnoremap <silent> <C-O><C-O> :Files
+nnoremap <silent> <C-O><C-O> :Files 
 nnoremap <silent> <S-F><S-F> :Rg <CR>
 
 
