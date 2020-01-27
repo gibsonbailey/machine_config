@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/bailey/machine_config'
+let g:netrw_dirhist_2='/Users/bailey/.vim'
+let g:netrw_dirhist_3='/Users/bailey/.zsh'
+let g:netrw_dirhist_4='/Users/bailey/.vim'
+let g:netrw_dirhist_5='/Users/bailey/.vim/plugged/fzf.vim'
+let g:netrw_dirhist_6='/Users/bailey/.vim/plugged/fzf.vim/autoload/fzf/vim'
