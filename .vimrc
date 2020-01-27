@@ -18,6 +18,8 @@ nnoremap <silent> <F10> :tabn <CR>
 nnoremap <silent> :te :tabe
 nnoremap <silent> <C-O> :Files <CR>
 nnoremap <silent> <C-O><C-O> :Files
+nnoremap <silent> <S-F><S-F> :Rg <CR>
+
 
 
 let g:fzf_action = {
