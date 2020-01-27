@@ -6,3 +6,5 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export PS1='%9c%{%F{green}%}$(parse_git_branch)%{%F{none}%} >> '

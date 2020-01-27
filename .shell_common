@@ -1,7 +1,6 @@
 clear
 printf "                    +      \n"
-printf "\n\n"
-printf "                                        +            + \n"
+printf "\n\n" printf "                                        +            + \n"
 printf "                _..._                           +                 \n"
 printf "     +        .'     '.      _ \n"
 printf "             /    .-\"\"-\\   _/ \\                            \n"
@@ -23,9 +22,6 @@ printf "\n\n"
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-
-setopt PROMPT_SUBST
-PROMPT='%9c%{%F{green}%}$(parse_git_branch)%{%F{none}%} >> '
 
 bindkey "\e\e[D" backward-word
 bindkey "\e\e[C" forward-word
