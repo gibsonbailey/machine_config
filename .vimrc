@@ -8,6 +8,8 @@ set mouse=a
 set number
 set autoindent
 
+set clipboard=unnamed
+
 set wrapmargin=5
 
 set t_Co=256 
