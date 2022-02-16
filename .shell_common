@@ -49,6 +49,7 @@ alias ded="docker exec -it django /bin/bash"
 alias dld="docker logs -f django"
 alias runlocal="python manage_dev.py runserver 0.0.0.0:3333"
 alias dsp="python manage_dev.py shell_plus"
+alias logs="dc logs -f"
 
 
 
