@@ -40,6 +40,7 @@ alias graph="git log --graph --abbrev-commit --decorate --format=format:'%C(bold
 alias push="git push"
 alias pull="git pull"
 alias gpu="git push --set-upstream origin"
+alias gch="git checkout"
 
 alias up="docker-compose up -d"
 alias down="docker-compose down"
