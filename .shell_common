@@ -50,8 +50,13 @@ alias dld="docker logs -f django"
 alias runlocal="python manage_dev.py runserver 0.0.0.0:3333"
 alias dsp="python manage_dev.py shell_plus"
 alias logs="dc logs -f"
+
 b() {
     dc exec $1 bash
+}
+
+manage() {
+    dc exec django python manage.py "${@:1}"
 }
 
 
