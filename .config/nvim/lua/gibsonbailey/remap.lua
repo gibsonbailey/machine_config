@@ -1,6 +1,8 @@
 vim.keymap.set("i", "jj", "<Esc>")
 
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>")
+
+-- Open/close file tree
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 
 -- Change windows quickly
@@ -14,6 +16,8 @@ vim.keymap.set("n", "K", "<C-w>k")
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 
--- Buffer management
+-- Switch to last buffer
 vim.keymap.set("n", "<leader>b", "<C-^>")
-vim.keymap.set("n", "<leader>w", ":bd<CR>")
+
+-- Close current buffer
+vim.keymap.set("n", "<leader>w", ":bd<CR>:NvimTreeToggle<CR>:NvimTreeToggle<CR>")
