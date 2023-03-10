@@ -73,4 +73,9 @@ return require('packer').startup(function(use)
   use {
     "zbirenbaum/copilot.lua",
   }
+
+  -- Formatting
+  use {
+    'mhartington/formatter.nvim'
+  }
 end)
