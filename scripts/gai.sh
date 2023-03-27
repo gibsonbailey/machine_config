@@ -16,19 +16,21 @@ show_files() {
     }'
 }
 
+ROOT_GIT_DIR="$(git rev-parse --show-toplevel)"
+
 fzf_window() {
-    fzf --ansi --height 100% --preview 'git diff --color=always {}'
+    fzf --ansi --height 100% --preview "git diff --color=always -- ${ROOT_GIT_DIR}/{}"
 }
 
 FILE="$(show_files | fzf_window)"
 while [ -n "$FILE" ]; do
     # If the file is staged, unstage it. Otherwise, stage it.
     if [ -n "$(git status --porcelain | grep "^.\S $FILE")" ]; then
-        echo "Staging $FILE"
-        git add "$FILE"
+        echo "Staging ${ROOT_GIT_DIR}/${FILE}"
+        git add -- "${ROOT_GIT_DIR}/${FILE}"
     else
-        echo "Unstaging $FILE"
-        git restore --staged "$FILE"
+        echo "Unstaging ${ROOT_GIT_DIR}/${FILE}"
+        git restore --staged -- "${ROOT_GIT_DIR}/${FILE}"
     fi
     FILE="$(show_files | fzf_window)"
 done
