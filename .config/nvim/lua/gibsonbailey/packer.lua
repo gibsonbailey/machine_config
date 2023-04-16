@@ -45,14 +45,6 @@ return require('packer').startup(function(use)
     }
   }
 
-  -- Fast movements using 's<char><char>' and 'S<char><char>'
-  use {
-    'ggandor/leap.nvim',
-    config = function()
-      require('leap').add_default_mappings()
-    end,
-  }
-
   -- Quick line commenting with `gcc` and block commenting with `V (highlight block) gc`
   use 'tpope/vim-commentary'
   -- TODO:
