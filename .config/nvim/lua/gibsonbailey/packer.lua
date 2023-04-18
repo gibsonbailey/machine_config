@@ -1,5 +1,9 @@
 -- Many of these plugins are configured in the .config/nvim/after/plugins directory.
 
+-- To Sync this file run the following nvim commands:
+-- :so %
+-- :PackerSync
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
