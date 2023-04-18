@@ -33,7 +33,7 @@ local_ip() {
 
 fc() {
 # Go to a directory in my source code dir.
-  DIR=$(find ~/src -maxdepth 1 -type d -exec gstat -c "%Y %n" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)
+  DIR=$(find ~/src -maxdepth 1 -type d -exec stat -f "%m %N" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)
   if [ -n "$DIR" ]; then
     cd $DIR
   fi
@@ -41,7 +41,7 @@ fc() {
 
 vc() {
 # Open source code dir with nvim.
-    DIR="$(find ~/src -maxdepth 1 -type d -exec gstat -c "%Y %n" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)"
+    DIR="$(find ~/src -maxdepth 1 -type d -exec stat -f "%m %N" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)"
     if [ -n "$DIR" ]; then
         nvim $DIR
     fi
