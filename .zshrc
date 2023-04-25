@@ -10,7 +10,6 @@ function architecture() {
 
 if [ $(arch) = "i386" ]; then
     alias brew='/usr/local/bin/brew'
-    alias pyenv86="arch -x86_64 pyenv"
     alias func="/usr/local/Cellar/azure-functions-core-tools@4/4.0.5095/func"
   else 
     alias brew='/opt/homebrew/bin/brew'
