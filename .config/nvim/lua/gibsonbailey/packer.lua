@@ -4,6 +4,9 @@
 -- :so %
 -- :PackerSync
 
+-- To install formatters, run :Mason and navigate to the formatters section
+-- Install the formatters you want to use
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
