@@ -9,6 +9,8 @@ function architecture() {
 }
 
 if [ $(arch) = "i386" ]; then
+    # Hint: To start up connection to db, run:
+    # mssql-cli -S ip_address -U username -P password -d database_name
     alias brew='/usr/local/bin/brew'
     alias func="/usr/local/Cellar/azure-functions-core-tools@4/4.0.5095/func"
   else 
@@ -31,6 +33,7 @@ autoload -Uz compinit && compinit
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
