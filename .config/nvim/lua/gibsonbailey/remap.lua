@@ -20,5 +20,4 @@ vim.keymap.set("n", "<leader>r",
 vim.keymap.set("n", "<leader>b", "<C-^>")
 
 -- Close current buffer
-vim.keymap
-    .set("n", "<leader>w", ":bd<CR>:NvimTreeToggle<CR>:NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>w", ":bd<CR>")
