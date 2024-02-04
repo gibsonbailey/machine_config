@@ -103,7 +103,7 @@ export PATH="/usr/local/Cellar:$PATH"
 
 alias vim="nvim"
 alias ll="ls -al"
-alias python="python3"
+# alias python="python3"
 alias gc="git commit -m"
 alias gs="git status"
 alias ga="git add ."
