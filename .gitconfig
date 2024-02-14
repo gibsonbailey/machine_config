@@ -8,3 +8,7 @@
 	conflicStyle = diff3
 [pull]
 	rebase = false
+[core]
+	excludesFile = ~/.gitignore
+[branch]
+	sort = -committerdate
