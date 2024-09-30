@@ -69,6 +69,15 @@ return require('packer').startup(function(use)
         requires = 'nvim-tree/nvim-web-devicons'
     }
 
+    -- Copilot autocompletion
+    use {"zbirenbaum/copilot.lua"}
+
+    -- Code GPT
+    use {
+        'dpayne/CodeGPT.nvim',
+        requires = {'nvim-lua/plenary.nvim', 'MunifTanjim/nui.nvim'}
+    }
+
     -- Formatting
     use {'mhartington/formatter.nvim'}
 end)

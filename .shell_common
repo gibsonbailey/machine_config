@@ -161,3 +161,8 @@ export PATH="$N_PREFIX/bin:$PATH"
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$HOME/bin:$PATH
+
+
+if [ -f ~/.keys.sh ]; then
+    source ~/.keys.sh
+fi
