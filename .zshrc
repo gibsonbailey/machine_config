@@ -1,8 +1,11 @@
 source ~/.shell_common
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
+
+export DYLD_LIBRARY_PATH="/opt/homebrew/opt/libvmaf/lib:$DYLD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/libvmaf/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 
 alias vulnerable_chrome='open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security'
@@ -26,7 +29,7 @@ if [ $(arch) = "i386" ]; then
 fi
 
 setopt PROMPT_SUBST
-PROMPT='$(architecture)%9c%{%F{051}%}$(parse_git_branch)%{%F{none}%} >> '
+PROMPT='$(architecture)%B%F{cyan}%9c%{%F{green}%}%b$(parse_git_branch)%{%F{none}%}%B%F{cyan} >> %b%f'
 
 alias graph="git log --graph --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(green)(%ar)%C(reset)%C(bold white) %s%C(reset) %C(dim     white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
 
