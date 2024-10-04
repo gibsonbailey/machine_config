@@ -50,9 +50,9 @@ return require('packer').startup(function(use)
 
     -- Quick line commenting with `gcc` and block commenting with `V (highlight block) gc`
     use 'tpope/vim-commentary'
-    -- TODO:
-    -- Make comments in JSX work better. Maybe tsserver can help?
-    -- Make this easier than `gcc`. It would feel better to have a single keystroke (with a modifier)
+
+    -- Makes auto-comment cursor position dependent
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
 
     -- File Tree
     use {
@@ -70,14 +70,8 @@ return require('packer').startup(function(use)
     }
 
     -- Copilot autocompletion
-    use {"zbirenbaum/copilot.lua"}
-
-    -- Code GPT
-    use {
-        'dpayne/CodeGPT.nvim',
-        requires = {'nvim-lua/plenary.nvim', 'MunifTanjim/nui.nvim'}
-    }
+    use "github/copilot.vim"
 
     -- Formatting
-    use {'mhartington/formatter.nvim'}
+    use 'mhartington/formatter.nvim'
 end)
