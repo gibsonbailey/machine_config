@@ -25,6 +25,17 @@ return require('packer').startup(function(use)
     -- Syntax highlighting
     use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1'}
 
+    -- LSP
+    use {
+        'neovim/nvim-lspconfig',
+        config = function()
+            require('lspconfig').clangd.setup {
+                cmd = {"clangd", "--compile-commands-dir=/Users/bailey/src/arduino_sketches/fpv_robot/build"},
+                filetypes = {"cpp", "ino"}
+            }
+        end
+    }
+
     -- LSP support
     use {
         'vonheikemen/lsp-zero.nvim',
