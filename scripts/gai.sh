@@ -2,13 +2,19 @@ show_files() {
     git status --porcelain | sort | awk '
     BEGIN {
       red = "\033[31m";
+      orange = "\033[33m";
       green = "\033[32m";
       reset = "\033[0m";
     }
     {
       first_char = substr($0, 1, 1)
+      second_char = substr($0, 2, 1)
       if (first_char == "M" || first_char == "A" || first_char == "D") {
-        color = green;
+        if (second_char == "M" || second_char == "A" || second_char == "D") {
+          color = orange;
+        } else {
+          color = green;
+        }
       } else if (first_char == " ") {
         color = red;
       }
