@@ -16,7 +16,11 @@ return require('packer').startup(function(use)
     use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.5',
-        requires = {{'nvim-lua/plenary.nvim'}}
+        -- plenary and live-grep-args
+        requires = {
+          {'nvim-lua/plenary.nvim'},
+          {'nvim-telescope/telescope-live-grep-args.nvim'}packer
+        }
     }
 
     -- Colors

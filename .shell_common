@@ -118,9 +118,9 @@ gpu() {
     git push --set-upstream origin $(git branch --show-current)
 }
 
-alias up="docker-compose up -d"
-alias down="docker-compose down"
-alias dc="docker-compose"
+alias up="docker compose up -d"
+alias down="docker compose down"
+alias dc="docker compose"
 alias ded="docker exec -it django /bin/bash"
 alias dld="docker logs -f django"
 alias runlocal="python manage_dev.py runserver 0.0.0.0:3333"
@@ -148,7 +148,7 @@ if [ -f '/Users/gibsonbailey/Downloads/google-cloud-sdk/path.bash.inc' ]; then .
 if [ -f '/Users/gibsonbailey/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/gibsonbailey/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 alias graph="git lg"
 alias graphold="git log --decorate --graph --all --oneline"
-alias runsim="docker-compose exec simulator python minimal_gui.py"
+alias runsim="docker compose exec simulator python minimal_gui.py"
 alias viewsim="open vnc://0.0.0.0:5900"
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
