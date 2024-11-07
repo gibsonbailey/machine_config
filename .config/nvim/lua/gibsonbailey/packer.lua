@@ -19,7 +19,7 @@ return require('packer').startup(function(use)
         -- plenary and live-grep-args
         requires = {
           {'nvim-lua/plenary.nvim'},
-          {'nvim-telescope/telescope-live-grep-args.nvim'}packer
+          {'nvim-telescope/telescope-live-grep-args.nvim'}
         }
     }
 
