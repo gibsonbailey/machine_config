@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
     -- Buffer "tabs" to see which buffers are open
     use {
         'akinsho/bufferline.nvim',
-        tag = "v3.*",
+        tag = "v4.*",
         requires = 'nvim-tree/nvim-web-devicons'
     }
 
