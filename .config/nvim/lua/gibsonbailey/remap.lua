@@ -21,3 +21,21 @@ vim.keymap.set("n", "<leader>b", "<C-^>")
 
 -- Close current buffer
 vim.keymap.set("n", "<leader>w", ":bd<CR>")
+
+-- llm tool
+-- vim.keymap.set('n', '<leader>l', require('llm_tool').show_options,
+--                {noremap = true, silent = true})
+
+-- -- Do the same thing in visual line mode
+-- vim.keymap.set('x', '<leader>l', require('llm_tool').show_options,
+--                {noremap = true, silent = true})
+
+-- And in visual mode
+vim.keymap.set('v', '<leader>l', require('llm_tool').show_options,
+               {noremap = true, silent = false})
+
+-- vim.keymap.set('v', '<leader>l', function()
+--   local llm_tool = require('llm_tool')
+--   llm_tool.capture_visual_marks()
+--   llm_tool.show_options()
+-- end, {noremap = true, silent = false})
