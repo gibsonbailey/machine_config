@@ -15,11 +15,10 @@ return require('packer').startup(function(use)
     -- Search
     use {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.5',
         -- plenary and live-grep-args
         requires = {
-          {'nvim-lua/plenary.nvim'},
-          {'nvim-telescope/telescope-live-grep-args.nvim'}
+            {'nvim-lua/plenary.nvim'},
+            {'nvim-telescope/telescope-live-grep-args.nvim'}
         }
     }
 
@@ -27,14 +26,17 @@ return require('packer').startup(function(use)
     use {"catppuccin/nvim", as = "catppuccin"}
 
     -- Syntax highlighting
-    use {'nvim-treesitter/nvim-treesitter', tag = 'v0.9.1'}
+    use {'nvim-treesitter/nvim-treesitter'}
 
     -- LSP
     use {
         'neovim/nvim-lspconfig',
         config = function()
             require('lspconfig').clangd.setup {
-                cmd = {"clangd", "--compile-commands-dir=/Users/bailey/src/arduino_sketches/fpv_robot/build"},
+                cmd = {
+                    "clangd",
+                    "--compile-commands-dir=/Users/bailey/src/arduino_sketches/fpv_robot/build"
+                },
                 filetypes = {"cpp", "ino"}
             }
         end
@@ -89,4 +91,8 @@ return require('packer').startup(function(use)
 
     -- Formatting
     use 'mhartington/formatter.nvim'
+
+    -- Search and replace
+    use {'nvim-pack/nvim-spectre', requires = {{'nvim-lua/plenary.nvim'}}}
+
 end)
