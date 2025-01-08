@@ -8,7 +8,7 @@ function M.create_file_in_selected_dir()
     builtin.find_files({
         prompt_title = "Select Directory",
         -- Only show directories:
-        find_command = {"fd", "--type", "d", "--hidden", "--follow"},
+        find_command = {"fd", "--type", "d", "--hidden", "--follow", "--exclude", ".git"},
         attach_mappings = function(prompt_bufnr, map)
             local create = function()
                 local selection = action_state.get_selected_entry()
