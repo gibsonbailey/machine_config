@@ -7,6 +7,7 @@ local M = {}
 function M.create_file_in_selected_dir()
     builtin.find_files({
         prompt_title = "Select Directory",
+        cwd = vim.fn.getcwd(),
         -- Only show directories:
         find_command = {"fd", "--type", "d", "--hidden", "--follow", "--exclude", ".git"},
         attach_mappings = function(prompt_bufnr, map)
