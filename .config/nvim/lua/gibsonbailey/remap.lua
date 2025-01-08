@@ -22,20 +22,17 @@ vim.keymap.set("n", "<leader>b", "<C-^>")
 -- Close current buffer
 vim.keymap.set("n", "<leader>w", ":bd<CR>")
 
-
 -- Search and replace current word
-vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-    desc = "Search current word"
-})
-vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-    desc = "Search current word"
-})
+vim.keymap.set('n', '<leader>sw',
+               '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
+               {desc = "Search current word"})
+vim.keymap.set('v', '<leader>sw',
+               '<esc><cmd>lua require("spectre").open_visual()<CR>',
+               {desc = "Search current word"})
 
 -- Toggle Spectre
-vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
-    desc = "Toggle Spectre"
-})
-
+vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>',
+               {desc = "Toggle Spectre"})
 
 -- llm tool
 -- vim.keymap.set('n', '<leader>l', require('llm_tool').show_options,
@@ -54,3 +51,7 @@ vim.keymap.set('v', '<leader>l', require('llm_tool').show_options,
 --   llm_tool.capture_visual_marks()
 --   llm_tool.show_options()
 -- end, {noremap = true, silent = false})
+
+vim.keymap.set("n", "<leader>c", function()
+    require("gibsonbailey/create_file").create_file_in_selected_dir()
+end, {noremap = true, silent = true})
