@@ -14,6 +14,7 @@ require("formatter").setup({
 		json = { require("formatter.filetypes.json").prettierd },
 		html = { require("formatter.filetypes.html").prettierd },
 		css = { require("formatter.filetypes.css").prettierd },
+		sh = { require("formatter.filetypes.sh").shfmt },
 	},
 })
 
