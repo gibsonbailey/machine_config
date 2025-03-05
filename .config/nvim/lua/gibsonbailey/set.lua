@@ -16,7 +16,7 @@ vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.opt.clipboard = 'unnamed'
+vim.opt.clipboard = "unnamed"
 
 vim.opt.termguicolors = true
 
@@ -26,5 +26,5 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
