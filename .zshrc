@@ -63,7 +63,7 @@ fzf_history_search() {
       | tail -r \
       | fzf)"
   if [[ -n "$selected" ]]; then
-    BUFFER="${selected#* }"
+    BUFFER="${selected}"
     CURSOR=$#BUFFER
   fi
   zle reset-prompt
