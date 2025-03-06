@@ -27,6 +27,9 @@ fi
 setopt PROMPT_SUBST
 PROMPT='$(architecture)%B%F{cyan}%9c%{%F{green}%}%b$(parse_git_branch)%{%F{none}%}%B%F{cyan} >> %b%f'
 
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+
 alias graph="git log --graph --abbrev-commit --decorate --format=format:'%C(bold yellow)%h%C(reset) - %C(green)(%ar)%C(reset)%C(bold white) %s%C(reset) %C(dim     white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
 
 # Load Git Completion
@@ -45,3 +48,25 @@ export NVM_DIR="$HOME/.nvm"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
+
+# Custom history search
+fzf_history_search() {
+  fc -R  # reload history from file into memory
+  local selected="$(
+    fc -l 1 \
+      | tail -r \
+      | awk '{
+        $1=""; sub(/^[[:space:]]+/, "")
+        if(!seen[$0]++) print
+      }' \
+      | tail -r \
+      | fzf)"
+  if [[ -n "$selected" ]]; then
+    BUFFER="${selected#* }"
+    CURSOR=$#BUFFER
+  fi
+  zle reset-prompt
+}
+
+zle -N fzf_history_search
+bindkey '^R' fzf_history_search

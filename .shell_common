@@ -31,7 +31,7 @@ local_ip() {
     ifconfig en0 | grep broadcast | awk '{print $2}'
 }
 
-fc() {
+c() {
 # Go to a directory in my source code dir.
   DIR=$(find ~/src -maxdepth 1 -type d -exec stat -f "%m %N" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)
   if [ -n "$DIR" ]; then
