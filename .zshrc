@@ -60,7 +60,6 @@ fzf_history_search() {
         $1=""; sub(/^[[:space:]]+/, "")
         if(!seen[$0]++) print
       }' \
-      | tail -r \
       | fzf)"
   if [[ -n "$selected" ]]; then
     BUFFER="${selected}"
