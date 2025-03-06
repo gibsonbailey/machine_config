@@ -53,20 +53,44 @@ eval "$(pyenv init - zsh)"
 # Custom history search
 fzf_history_search() {
   fc -R  # reload history from file into memory
-  local selected="$(
-    fc -l 1 \
-      | tail -r \
-      | awk '{
-        $1=""; sub(/^[[:space:]]+/, "")
-        if(!seen[$0]++) print
-      }' \
-      | fzf)"
+  
+  local selected
+  selected=$(
+    fc -l 1 | 
+    awk '
+      {
+        cmd = $0;
+        sub(/^[[:space:]]*[0-9]+[[:space:]]+/, "", cmd);
+        line = $0;
+        num = $1;
+        
+        # Store highest history number for each unique command
+        if (!seen[cmd] || num > max_num[cmd]) {
+          max_num[cmd] = num;
+          entry[cmd] = line;
+        }
+        seen[cmd] = 1;
+      }
+      END {
+        # Output entries sorted by history number
+        for (cmd in entry) {
+          print entry[cmd];
+        }
+      }
+    ' | 
+    sort -nr |
+    fzf --no-sort
+  )
+  
   if [[ -n "$selected" ]]; then
-    BUFFER="${selected}"
+    # Remove the history number at the beginning
+    BUFFER="$(echo "$selected" | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]+//')"
     CURSOR=$#BUFFER
   fi
+  
   zle reset-prompt
 }
+
 
 zle -N fzf_history_search
 bindkey '^R' fzf_history_search
