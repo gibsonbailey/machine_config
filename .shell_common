@@ -20,19 +20,20 @@ printf "                  \`-._/._/                    +                        
 printf "\n\n"
 
 parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 public_ip() {
-    curl ipecho.net/plain ; echo
+  curl ipecho.net/plain
+  echo
 }
 
 local_ip() {
-    ifconfig en0 | grep broadcast | awk '{print $2}'
+  ifconfig en0 | grep broadcast | awk '{print $2}'
 }
 
 c() {
-# Go to a directory in my source code dir.
+  # Go to a directory in my source code dir.
   DIR=$(find ~/src -maxdepth 1 -type d -exec stat -f "%m %N" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)
   if [ -n "$DIR" ]; then
     cd $DIR
@@ -40,11 +41,11 @@ c() {
 }
 
 vc() {
-# Open source code dir with nvim.
-    DIR="$(find ~/src -maxdepth 1 -type d -exec stat -f "%m %N" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)"
-    if [ -n "$DIR" ]; then
-        nvim $DIR
-    fi
+  # Open source code dir with nvim.
+  DIR="$(find ~/src -maxdepth 1 -type d -exec stat -f "%m %N" {} \; | sort -k 1 -rn | awk '{print $2}' | fzf)"
+  if [ -n "$DIR" ]; then
+    nvim $DIR
+  fi
 }
 
 gai() {
@@ -56,45 +57,41 @@ gai() {
 # Use `ngrok` command
 
 uip() {
-    if [ $# -gt 1 ]
-      then
-        echo "Error: too many arguments.
+  if [ $# -gt 1 ]; then
+    echo "Error: too many arguments.
 uip is a function built to replace the SITE_DOMAIN variable in your .env file to use your current local ip.
 Usage:
 uip <file_name>
 (file_name is optional)."
-        return 1
-    fi
-    FILE=".env"
-    if [ $# -gt 0 ]
-      then
-        FILE=$1
-    fi
+    return 1
+  fi
+  FILE=".env"
+  if [ $# -gt 0 ]; then
+    FILE=$1
+  fi
 
-    IN_GIT_DIRECTORY="$(git rev-parse --is-inside-work-tree)"
-    
-    if [[ -z $IN_GIT_DIRECTORY ]]
-    then
-        echo 'uip: This command only works inside git repositories.'
-    else
-        REPO_PATH="$(git rev-parse --show-toplevel)"
-        echo $REPO_PATH
-    fi
+  IN_GIT_DIRECTORY="$(git rev-parse --is-inside-work-tree)"
 
-    FILE=$REPO_PATH/$FILE
+  if [[ -z $IN_GIT_DIRECTORY ]]; then
+    echo 'uip: This command only works inside git repositories.'
+  else
+    REPO_PATH="$(git rev-parse --show-toplevel)"
+    echo $REPO_PATH
+  fi
 
-    IP="$(local_ip)"
+  FILE=$REPO_PATH/$FILE
 
-    echo "Replacing active SITE_DOMAIN var in $FILE with new ip: $IP"
+  IP="$(local_ip)"
 
-    REGEX="s|(^SITE_DOMAIN.*)|SITE_DOMAIN=http://$IP:8000|"
-    sed -i '' -E $REGEX $FILE
+  echo "Replacing active SITE_DOMAIN var in $FILE with new ip: $IP"
+
+  REGEX="s|(^SITE_DOMAIN.*)|SITE_DOMAIN=http://$IP:8000|"
+  sed -i '' -E $REGEX $FILE
 }
 
 # Pulls aws bucket down to local
 # below replace <aws key>, <aws secret>, and <cloudcube bucket name>
 # AWS_ACCESS_KEY_ID=<aws key> AWS_SECRET_ACCESS_KEY=<aws secret> aws s3 sync s3://cloud-cube-us2/<cloudcube bucket name> .
-
 
 bindkey "\e\e[D" backward-word
 bindkey "\e\e[C" forward-word
@@ -115,7 +112,7 @@ alias pull="git pull"
 alias gch="git checkout"
 
 gpu() {
-    git push --set-upstream origin $(git branch --show-current)
+  git push --set-upstream origin $(git branch --show-current)
 }
 
 alias up="docker compose up -d"
@@ -128,18 +125,16 @@ alias dsp="python manage_dev.py shell_plus"
 alias logs="dc logs -f"
 
 b() {
-    dc exec $1 bash
+  dc exec $1 bash
 }
 
 manage() {
-    dc exec django python manage.py "${@:1}"
+  dc exec django python manage.py "${@:1}"
 }
 
 sp() {
-    dc exec django python manage.py shell_plus
+  dc exec django python manage.py shell_plus
 }
-
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/gibsonbailey/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/gibsonbailey/Downloads/google-cloud-sdk/path.bash.inc'; fi
@@ -155,14 +150,19 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 alias f="fzf --preview 'bat --style=numbers --color=always {} | head -500'"
 
-
 export N_PREFIX=$HOME/.n
 export PATH="$N_PREFIX/bin:$PATH"
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$ANDROID_HOME/platform-tools:$PATH
+export NDK_HOME=$ANDROID_HOME/ndk/28.0.12674087
+export NDKROOT=$NDK_HOME
+export NDK_ROOT=$NDK_HOME
+export PATH=$PATH:$NDK_HOME
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$HOME/bin:$PATH
 
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export PATH=$JAVA_HOME/bin:$PATH
 
 if [ -f ~/.keys.sh ]; then
-    source ~/.keys.sh
+  source ~/.keys.sh
 fi

@@ -4,7 +4,7 @@ require("formatter").setup({
 	filetype = {
 		lua = { require("formatter.filetypes.lua").stylua },
 		python = {
-			require("formatter.filetypes.python").autopep8,
+			require("formatter.filetypes.python").black,
 			require("formatter.filetypes.python").isort,
 		},
 		javascript = prettierd,
@@ -15,6 +15,17 @@ require("formatter").setup({
 		html = { require("formatter.filetypes.html").prettierd },
 		css = { require("formatter.filetypes.css").prettierd },
 		sh = { require("formatter.filetypes.sh").shfmt },
+		cpp = {
+			require("formatter.filetypes.cpp").clangformat,
+			function()
+				return {
+					exe = "clang-format",
+					args = { "--style={ColumnLimit: 0}" },
+					stdin = true,
+				}
+			end,
+		},
+		arduino = { require("formatter.filetypes.cpp").clangformat },
 	},
 })
 

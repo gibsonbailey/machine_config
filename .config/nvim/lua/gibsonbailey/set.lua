@@ -28,3 +28,13 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+vim.filetype.add({
+  filename = {
+    [".shell_common"] = "sh",
+    [".bashrc"] = "sh",
+    [".bash_profile"] = "sh",
+    [".zshrc"] = "zsh",
+    [".ino"] = "cpp",
+  },
+})
