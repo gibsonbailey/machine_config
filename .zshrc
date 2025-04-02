@@ -91,10 +91,5 @@ fzf_history_search() {
   zle reset-prompt
 }
 
-
 zle -N fzf_history_search
 bindkey '^R' fzf_history_search
-
-if [ -z "$TMUX" ]; then
-    tmux attach || tmux new
-fi
