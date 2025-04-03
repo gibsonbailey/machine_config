@@ -7,7 +7,7 @@ require("formatter").setup({
 			require("formatter.filetypes.python").black,
 			require("formatter.filetypes.python").isort,
 		},
-		javascript = prettierd,
+		javascript = { require("formatter.filetypes.javascript").prettierd },
 		typescript = prettierd,
 		typescriptreact = prettierd,
 		javascriptreact = prettierd,
@@ -26,12 +26,7 @@ require("formatter").setup({
 			end,
 		},
 		arduino = { require("formatter.filetypes.cpp").clangformat },
+		zsh = { require("formatter.filetypes.zsh").beautysh },
+		zshrc = { require("formatter.filetypes.zsh").beautysh },
 	},
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-	group = vim.api.nvim_create_augroup("Formatter", { clear = true }),
-	callback = function()
-		vim.cmd("silent! Format")
-	end,
 })
