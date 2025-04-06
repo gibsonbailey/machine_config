@@ -1,59 +1,91 @@
-local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-  "ts_ls",
-	"lua_ls",
-	"basedpyright",
-	"biome",
+-- note: diagnostics are not exclusive to lsp servers
+-- so these can be global keybindings
+vim.keymap.set('n', '<leader>vd', '<cmd>lua vim.diagnostic.open_float()<cr>')
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+-- Run :Format with comma in normal and visual mode
+vim.keymap.set({ 'n', 'x' }, '<leader>vf', ':Format<cr>', {
+  desc = 'Format the current buffer',
+  -- this will work in normal and visual mode
 })
 
-lsp.nvim_workspace()
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = { buffer = event.buf }
 
-lsp.configure("basedpyright", {
-	root_dir = require("lspconfig.util").root_pattern(".git", "pyright.config", "setup.py", "setup.cfg"),
+    -- these will be buffer-local keybindings
+    -- because they only work if you have an active language server
+
+    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    -- vim.keymap.set({ 'n', 'x' }, ',', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+  end
 })
 
-lsp.on_attach(function(_, bufnr)
-	local opts = { buffer = bufnr, remap = false }
-	vim.keymap.set("n", "gd", function()
-		vim.lsp.buf.definition()
-	end, opts)
-	vim.keymap.set("n", "<C-k>", function()
-		vim.lsp.buf.hover()
-	end, opts)
-	vim.keymap.set("n", "<leader>vws", function()
-		vim.lsp.buf.workspace_symbol()
-	end, opts)
-	vim.keymap.set("n", "<leader>vd", function()
-		vim.diagnostic.open_float()
-	end, opts)
-	vim.keymap.set("n", "[d", function()
-		vim.diagnostic.goto_next()
-	end, opts)
-	vim.keymap.set("n", "]d", function()
-		vim.diagnostic.goto_prev()
-	end, opts)
-	vim.keymap.set("n", "<leader>vca", function()
-		vim.lsp.buf.code_action()
-	end, opts)
-	vim.keymap.set("n", "<leader>vrr", function()
-		vim.lsp.buf.references()
-	end, opts)
-	vim.keymap.set("n", "<leader>vrn", function()
-		vim.lsp.buf.rename()
-	end, opts)
-end)
 
--- TODO: only remap tab if there's a suggestion
-lsp.setup_nvim_cmp({
-	mapping = lsp.defaults.cmp_mappings({
-		["<Tab>"] = vim.NIL,
-	}),
-	completion = {
-		autocomplete = false,
-	},
+
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    "ts_ls",
+    "lua_ls",
+    "basedpyright",
+    "biome",
+  },
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({
+        capabilities = lsp_capabilities,
+      })
+    end,
+  },
 })
 
-lsp.setup()
+local cmp = require('cmp')
+
+cmp.setup({
+  sources = {
+    { name = 'nvim_lsp' },
+  },
+  mapping = cmp.mapping.preset.insert({
+    -- Enter key confirms completion item
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
+    -- Ctrl + space triggers completion menu
+    ['<C-Space>'] = cmp.mapping.complete(),
+  }),
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+})
+
+require('lspconfig').lua_ls.setup({
+  capabilities = lsp_capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT'
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = {
+          vim.env.VIMRUNTIME,
+        }
+      }
+    }
+  }
+})
