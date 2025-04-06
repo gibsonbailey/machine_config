@@ -1,13 +1,13 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
-require("telescope").load_extension("live_grep_args")
+-- require("telescope").load_extension("live_grep_args")
 
 telescope.setup({
-	extensions = {
-		live_grep_args = {
-			auto_quoting = true,
-		},
-	},
+	-- extensions = {
+	-- 	live_grep_args = {
+	-- 		auto_quoting = true,
+	-- 	},
+	-- },
 })
 
 vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
