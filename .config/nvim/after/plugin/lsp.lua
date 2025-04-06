@@ -1,91 +1,91 @@
 -- note: diagnostics are not exclusive to lsp servers
 -- so these can be global keybindings
-vim.keymap.set('n', '<leader>vd', '<cmd>lua vim.diagnostic.open_float()<cr>')
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+vim.keymap.set("n", "<leader>vd", "<cmd>lua vim.diagnostic.open_float()<cr>")
+vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 -- Run :Format with comma in normal and visual mode
-vim.keymap.set({ 'n', 'x' }, '<leader>vf', ':Format<cr>', {
-  desc = 'Format the current buffer',
-  -- this will work in normal and visual mode
+vim.keymap.set({ "n", "x" }, "<leader>vf", ":Format<cr>", {
+	desc = "Format the current buffer",
+	-- this will work in normal and visual mode
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'LSP actions',
-  callback = function(event)
-    local opts = { buffer = event.buf }
+vim.api.nvim_create_autocmd("LspAttach", {
+	desc = "LSP actions",
+	callback = function(event)
+		local opts = { buffer = event.buf }
 
-    -- these will be buffer-local keybindings
-    -- because they only work if you have an active language server
+		-- these will be buffer-local keybindings
+		-- because they only work if you have an active language server
 
-    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    -- vim.keymap.set({ 'n', 'x' }, ',', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-  end
+		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
+		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
+		vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
+		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
+		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
+		-- rename symbol under cursor
+		vim.keymap.set("n", "grn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+		vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+		vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+		-- vim.keymap.set({ 'n', 'x' }, ',', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+		vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+	end,
 })
 
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    "ts_ls",
-    "lua_ls",
-    "basedpyright",
-    "biome",
-  },
-  handlers = {
-    function(server_name)
-      require('lspconfig')[server_name].setup({
-        capabilities = lsp_capabilities,
-      })
-    end,
-  },
+require("mason").setup({})
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"ts_ls",
+		"lua_ls",
+		"basedpyright",
+		"biome",
+	},
+	handlers = {
+		function(server_name)
+			require("lspconfig")[server_name].setup({
+				capabilities = lsp_capabilities,
+			})
+		end,
+	},
 })
 
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 cmp.setup({
-  sources = {
-    { name = 'nvim_lsp' },
-  },
-  mapping = cmp.mapping.preset.insert({
-    -- Enter key confirms completion item
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+	sources = {
+		{ name = "nvim_lsp" },
+	},
+	mapping = cmp.mapping.preset.insert({
+		-- Enter key confirms completion item
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-    -- Ctrl + space triggers completion menu
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
+		-- Ctrl + space triggers completion menu
+		["<C-Space>"] = cmp.mapping.complete(),
+	}),
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
 })
 
-require('lspconfig').lua_ls.setup({
-  capabilities = lsp_capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT'
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = {
-          vim.env.VIMRUNTIME,
-        }
-      }
-    }
-  }
+require("lspconfig").lua_ls.setup({
+	capabilities = lsp_capabilities,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = {
+					vim.env.VIMRUNTIME,
+				},
+			},
+		},
+	},
 })

@@ -5,8 +5,18 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
+
+local function my_on_attach(bufnr)
+  local api = require("nvim-tree.api")
+  -- Apply default Nvim-Tree mappings
+  api.config.mappings.default_on_attach(bufnr)
+  -- Override or add Shift+L to move to the right window
+  vim.keymap.set("n", "<S-L>", "<C-w>l", { buffer = bufnr, noremap = true, desc = "Move to right window" })
+end
+
 -- empty setup using defaults
 require("nvim-tree").setup({
+  on_attach = my_on_attach,
 	disable_netrw = true,
 	hijack_netrw = true,
 	update_cwd = true,
