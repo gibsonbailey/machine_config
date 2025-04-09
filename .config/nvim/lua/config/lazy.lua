@@ -25,14 +25,15 @@ vim.g.maplocalleader = " "
 require("lazy").setup({
 	spec = {
 		{
-			"catppuccin/nvim",
-			name = "catppuccin",
-			priority = 1000,
+			"neanias/everforest-nvim",
+			version = false,
+			lazy = false,
+			priority = 1000, -- make sure to load this before all the other start plugins
+			-- Optional; default configuration will be used if setup isn't called.
 			config = function()
-				require("catppuccin").setup({
-					flavour = "latte",
+				require("everforest").setup({
+					background = "hard",
 				})
-				vim.cmd("colorscheme catppuccin")
 			end,
 		},
 		{
@@ -119,10 +120,25 @@ require("lazy").setup({
 				"nvim-tree/nvim-web-devicons",
 			},
 		},
+		{
+			"f-person/auto-dark-mode.nvim",
+			opts = {
+				{
+					set_dark_mode = function()
+						vim.api.nvim_set_option_value("background", "dark", {})
+					end,
+					set_light_mode = function()
+						vim.api.nvim_set_option_value("background", "light", {})
+					end,
+					update_interval = 3000,
+					fallback = "dark",
+				},
+			},
+		},
 	},
 	-- Configure any other settings here. See the documentation for more details.
 	-- colorscheme that will be used when installing plugins.
-	install = { colorscheme = { "catppuccin-latte" } },
+	install = { colorscheme = { "everforest" } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
