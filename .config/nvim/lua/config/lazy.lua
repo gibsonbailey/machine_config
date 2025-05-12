@@ -33,6 +33,10 @@ require("lazy").setup({
 			config = function()
 				require("everforest").setup({
 					background = "hard",
+          on_highlights = function(hl, c)
+            hl.VisualNOS = { bg = '#F4FF7D'}
+            hl.Visual = { bg = '#F4FF7D', }
+          end,
 				})
 			end,
 		},
