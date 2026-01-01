@@ -40,21 +40,26 @@ require("lazy").setup({
 				})
 			end,
 		},
-		{
-			"nvim-treesitter/nvim-treesitter",
-			build = ":TSUpdate",
-			config = function()
-				local configs = require("nvim-treesitter.configs")
-
-				configs.setup({
-					ensure_installed = { "c", "lua", "query", "javascript", "html", "typescript", "python" },
-					sync_install = false,
-					auto_install = true,
-					highlight = { enable = true },
-					indent = { enable = true },
-				})
-			end,
-		},
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      config = function()
+        -- Optional minimal setup (defaults are fine for most users)
+        require("nvim-treesitter").setup({})
+    
+        -- Install your parsers asynchronously (skips if already installed)
+        require("nvim-treesitter").install({
+          "c",
+          "lua",
+          "query",
+          "javascript",
+          "html",
+          "typescript",
+          "python",
+          -- Add more if needed, e.g., "vim", "vimdoc", "bash", "markdown"
+        })
+      end,
+    },
 		{
 			"akinsho/bufferline.nvim",
 			version = "*",

@@ -33,8 +33,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = {
@@ -43,12 +41,35 @@ require("mason-lspconfig").setup({
 		"basedpyright",
 		"biome",
 	},
-	handlers = {
-		function(server_name)
-			require("lspconfig")[server_name].setup({
-				capabilities = lsp_capabilities,
-			})
-		end,
+})
+
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+-- Enable non-custom servers with shared capabilities
+local default_servers = { "ts_ls", "basedpyright", "biome" }
+for _, server in ipairs(default_servers) do
+	vim.lsp.enable(server, {
+		capabilities = lsp_capabilities,
+	})
+end
+
+-- Custom lua_ls config (settings + capabilities)
+vim.lsp.enable("lua_ls", {
+	capabilities = lsp_capabilities,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = {
+					vim.env.VIMRUNTIME,
+				},
+			},
+		},
 	},
 })
 
@@ -69,24 +90,5 @@ cmp.setup({
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)
 		end,
-	},
-})
-
-require("lspconfig").lua_ls.setup({
-	capabilities = lsp_capabilities,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				library = {
-					vim.env.VIMRUNTIME,
-				},
-			},
-		},
 	},
 })
