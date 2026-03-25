@@ -93,10 +93,7 @@ require("lazy").setup({
 		-- Makes auto-comment cursor position dependent
 		{ "JoosepAlviste/nvim-ts-context-commentstring" },
 
-		-- Copilot autocompletion
-		{ "github/copilot.vim" },
-
-		-- Formatting
+	-- Formatting
 		{ "mhartington/formatter.nvim" },
 
 		-- Search and replace
@@ -157,5 +154,16 @@ require("lazy").setup({
 	-- colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "everforest" } },
 	-- automatically check for plugin updates
-	checker = { enabled = true },
+	checker = { enabled = true, notify = false, frequency = 3600 },
+})
+
+-- Auto-apply plugin updates when the checker finds them
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LazyCheck",
+	callback = function()
+		local checker = require("lazy.manage.checker")
+		if #checker.updated > 0 then
+			require("lazy").update({ show = false })
+		end
+	end,
 })

@@ -93,3 +93,4 @@ fzf_history_search() {
 
 zle -N fzf_history_search
 bindkey '^R' fzf_history_search
+export PATH="$HOME/.local/bin:$PATH"
