@@ -1,7 +1,7 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-local indent = 2
+local indent = 4
 
 vim.opt.tabstop = indent
 vim.opt.softtabstop = indent
@@ -24,7 +24,7 @@ vim.opt.scrolloff = 8
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "120"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -41,3 +41,5 @@ vim.filetype.add({
 
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
+
+vim.g.python3_host_prog = '/Users/bailey.trefts/.pyenv/versions/3.12.9/bin/python3'

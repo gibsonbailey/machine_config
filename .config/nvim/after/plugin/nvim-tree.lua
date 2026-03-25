@@ -16,6 +16,9 @@ end
 
 -- empty setup using defaults
 require("nvim-tree").setup({
+  view = {
+      width = 40 ,
+  },
   on_attach = my_on_attach,
 	disable_netrw = true,
 	hijack_netrw = true,

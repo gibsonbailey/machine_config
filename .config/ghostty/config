@@ -1,2 +1,9 @@
 font-size = 20
 theme = dark:everforest-dark,light:everforest-light
+
+# Make gray text more visible in light mode for diffs
+palette = 8=#5c6a72
+
+# Make white text visible on light backgrounds
+palette = 7=#999999
+palette = 15=#475258
